@@ -36,5 +36,8 @@
     <select id="getAllUserToMap" resultType="map">
         select * from t_user
     </select>
-    
+
+    <select id="getAllUserToMap2" resultType="map">
+        select * from t_user
+    </select>
 </mapper>

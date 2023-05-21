@@ -67,5 +67,8 @@ public interface SelectMapper {
      */
     //List<Map<String, Object>> getAllUserToMap();
     @MapKey("id")
-    Map<String, Object> getAllUserToMap();
+    Map<Integer, Object> getAllUserToMap();
+
+    List<Map<Integer, Object>> getAllUserToMap2();
+
 }

@@ -21,14 +21,16 @@ public class SpecialSQLMapperTest {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SpecialSQLMapper mapper = sqlSession.getMapper(SpecialSQLMapper.class);
         List<User> list = mapper.getUserByLike("a");
-        list.forEach(System.out::println);
+                for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
     @Test
     public void testDeleteMoreUser(){
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SpecialSQLMapper mapper = sqlSession.getMapper(SpecialSQLMapper.class);
-        mapper.deleteMoreUser("9,10");
+        mapper.deleteMoreUser("6,10");
     }
 
     @Test
@@ -36,7 +38,9 @@ public class SpecialSQLMapperTest {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SpecialSQLMapper mapper = sqlSession.getMapper(SpecialSQLMapper.class);
         List<User> list = mapper.getUserList("t_user");
-        list.forEach(System.out::println);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
     @Test
@@ -47,6 +51,7 @@ public class SpecialSQLMapperTest {
         mapper.insertUser(user);
         System.out.println(user);
     }
+
 
     public void testJDBC(){
         try {
@@ -65,5 +70,31 @@ public class SpecialSQLMapperTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void testJDBC2() {
+        //测试获取自增的主键
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ssm", "root", "123456");
 
+            // 按需修改以下代码段
+            String sql = "insert into t_user (id,username,password,age,gender,email) values (?,?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,null);
+            ps.setString(2,"xiaohong");
+            ps.setString(3,"123456");
+            ps.setString(4,"23");
+            ps.setString(5,"女");
+            ps.setString(6,"1235@qq.com");
+            ps.executeUpdate();
+
+            ResultSet resultSet = ps.getGeneratedKeys();
+            resultSet.next();
+            int id = resultSet.getInt(1);
+
+            System.out.println("Generated ID: " + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

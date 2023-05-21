@@ -19,6 +19,7 @@ public class User {
 
     private String email;
 
+    //无参构造器一定要有
     public User() {
     }
 
@@ -81,7 +82,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "打印出bean类信息 User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

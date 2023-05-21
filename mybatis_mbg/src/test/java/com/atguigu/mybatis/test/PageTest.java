@@ -39,7 +39,9 @@ public class PageTest {
         List<Emp> list = mapper.selectByExample(null);
         //查询功能之后可以获取分页相关的所有数据
         PageInfo<Emp> pageInfo = new PageInfo<>(list, 5);
-        list.forEach(System.out::println);
+                for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
         System.out.println(pageInfo);
     }
 

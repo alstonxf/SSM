@@ -24,6 +24,12 @@
         separator：设置每次循环的数据之间的分隔符
         open：循环的所有内容以什么开始
         close：循环的所有内容以什么结束
+        6、sql片段
+        可以记录一段sql，在需要用的地方使用include标签进行引用
+        <sql id="empColumns">
+            emp_id,emp_name,age,gender,dept_id
+        </sql>
+        <include refid="empColumns"></include>
     -->
 
     <sql id="empColumns">
@@ -93,8 +99,8 @@
     <!--void insertMoreEmp(@Param("emps") List<Emp> emps);-->
     <insert id="insertMoreEmp">
         insert into t_emp values
-        <foreach collection="emps" item="emp" separator=",">
-            (null,#{emp.empName},#{emp.age},#{emp.gender},null)
+        <foreach collection="myemps" item="myeachemp" separator=",">
+            (null,#{myeachemp.empName},#{myeachemp.age},#{myeachemp.gender},null)
         </foreach>
     </insert>
 
@@ -110,4 +116,15 @@
         </foreach>
     </delete>
 
+<!--    UPDATE t_emp-->
+<!--    SET emp_name = 'new', age = 11, gender = 'male', dept_id = 3-->
+<!--    WHERE emp_id = 2;-->
+    <update id="testUpdateEmp">
+
+        <foreach collection="emps" item = "emp" separator=",">
+            UPDATE t_emp
+            SET emp_name = #{emp.empName} , age = #{emp.age}, gender = #{emp.gender}
+            WHERE emp_id = #{emp.empId};
+        </foreach>
+    </update>
 </mapper>

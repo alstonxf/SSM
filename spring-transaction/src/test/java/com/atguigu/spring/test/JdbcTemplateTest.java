@@ -42,7 +42,9 @@ public class JdbcTemplateTest {
     public void testGetAllUser(){
         String sql = "select * from t_user";
         List<User> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
-        list.forEach(System.out::println);
+                for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
     @Test

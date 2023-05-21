@@ -29,7 +29,9 @@ public class SelectMapperTest {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SelectMapper mapper = sqlSession.getMapper(SelectMapper.class);
         List<User> list = mapper.getAllUser();
-        list.forEach(System.out::println);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
     @Test
@@ -42,15 +44,23 @@ public class SelectMapperTest {
 
     @Test
     public void testGetUserByIdToMap(){
+        //当查询结果只有1条时，map中的key是字段名，Object是对应的字段值
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SelectMapper mapper = sqlSession.getMapper(SelectMapper.class);
-        Map<String, Object> map = mapper.getUserByIdToMap(4);
+        Map<String, Object> map = mapper.getUserByIdToMap(6);
         //{password=123456, gender=男, id=1, age=23, email=12345@qq.com, username=admin}
-        System.out.println(map);
+        if (map.isEmpty()==false){
+            for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
+                System.out.println(map);
+                System.out.println(stringObjectEntry.getKey()+":"+stringObjectEntry.getValue());
+            }
+        }
+
     }
 
     @Test
     public void testGetAllUserToMap(){
+        //当查询结果有多条时，map中的key是指定的唯一的字段值(注意一定要是唯一值，最好是主键，否则会丢数据)，Object是对应的整条记录。
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         SelectMapper mapper = sqlSession.getMapper(SelectMapper.class);
         /*List<Map<String, Object>> list = mapper.getAllUserToMap();
@@ -63,9 +73,27 @@ public class SelectMapperTest {
          * 4={password=123, id=4, username=lisi}
          * }
          */
-        Map<String, Object> map = mapper.getAllUserToMap();
-        System.out.println(map);
+        Map<Integer, Object> map = mapper.getAllUserToMap();
+//        System.out.println(map);
+
+        if (map.isEmpty()==false){
+            for (Map.Entry<Integer, Object> stringObjectEntry : map.entrySet()) {
+                System.out.println(stringObjectEntry);
+//                System.out.println(stringObjectEntry.getKey());
+//                System.out.println(stringObjectEntry.getValue());
+            }
+        }
     }
 
+    @Test
+    public  void testGetAllUserToMap2(){
+        SqlSessionUtil sqlSessionUtil = new SqlSessionUtil();
+        SqlSession sqlSession1 = sqlSessionUtil.getSqlSession();
+        SelectMapper mapper1 = sqlSession1.getMapper(SelectMapper.class);
+        List<Map<Integer, Object>> allUserToMap2 = mapper1.getAllUserToMap2();
+        for (Map<Integer, Object> integerObjectMap : allUserToMap2) {
+            System.out.println(integerObjectMap.entrySet());
+        }
+    }
 
 }

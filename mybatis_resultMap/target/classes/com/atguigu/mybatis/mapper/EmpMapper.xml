@@ -74,6 +74,7 @@
             <id column="dept_id" property="deptId"></id>
             <result column="dept_name" property="deptName"></result>
         </association>
+
     </resultMap>
 
     <!--Emp getEmpAndDeptByEmpId(@Param("empId") Integer empId);-->
@@ -83,7 +84,7 @@
         from t_emp
         left join t_dept
         on t_emp.dept_id = t_dept.dept_id
-        where t_emp.emp_id = #{empId}
+        where t_emp.emp_id = '${empId}'
     </select>
 
     <resultMap id="empAndDeptByStepResultMap" type="Emp">
@@ -92,15 +93,18 @@
         <result column="age" property="age"></result>
         <result column="gender" property="gender"></result>
         <!--
+            将上面column字段作为参数传入select语句
             property：设置需要处理映射关系的属性的属性名
             select：设置分步查询的sql的唯一标识
             column：将查询出的某个字段作为分步查询的sql的条件
             fetchType：在开启了延迟加载的环境中，通过该属性设置当前的分步查询是否使用延迟加载
             fetchType="eager(立即加载)|lazy(延迟加载)"
         -->
+<!--        把第一步查出来的dept_id的值作为参数传入getEmpAndDeptByStepTwo的sql执行，返回结果封装为dept。-->
         <association property="dept" fetchType="eager"
                      select="com.atguigu.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo"
-                     column="dept_id"></association>
+                     column="dept_id">
+        </association>
     </resultMap>
 
     <!--Emp getEmpAndDeptByStepOne(@Param("empId") Integer empId);-->

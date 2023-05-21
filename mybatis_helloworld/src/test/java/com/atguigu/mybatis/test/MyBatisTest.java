@@ -40,8 +40,22 @@ public class MyBatisTest {
         /*int result = sqlSession.insert("com.atguigu.mybatis.mapper.UserMapper.insertUser");*/
         System.out.println("结果："+result);
         //提交事务
-        //sqlSession.commit();
+        sqlSession.commit();
         //关闭SqlSession
+        sqlSession.close();
+    }
+
+    @Test
+    public void testInsertXF() throws IOException {
+        InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(com.atguigu.mybatis.mapper.UserMapper.class);
+        userMapper.insertUser();
+        userMapper.getAllUser();
+        userMapper.updateUser();
+        sqlSession.commit();
         sqlSession.close();
     }
 
@@ -74,7 +88,11 @@ public class MyBatisTest {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         List<User> list = mapper.getAllUser();
-        list.forEach(System.out::println);
+        for (int i = 0; i < list.size(); i++) {
+            User user = list.get(i);
+            System.out.println(user.toString());
+
+        }
     }
 
 }

@@ -39,6 +39,7 @@ public class CacheMapperTest {
      * 两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
      */
 
+    //MyBatis的二级缓存
     @Test
     public void testCache() throws IOException {
         InputStream is = Resources.getResourceAsStream("mybatis-config.xml");
@@ -47,7 +48,7 @@ public class CacheMapperTest {
         CacheMapper mapper1 = sqlSession1.getMapper(CacheMapper.class);
         Emp emp1 = mapper1.getEmpById(1);
         System.out.println(emp1);
-        sqlSession1.close();
+        sqlSession1.close();//二级缓存必须在SqlSession关闭或提交之后有效
         SqlSession sqlSession2 = sqlSessionFactory.openSession(true);
         CacheMapper mapper2 = sqlSession2.getMapper(CacheMapper.class);
         Emp emp2 = mapper2.getEmpById(1);
@@ -55,14 +56,15 @@ public class CacheMapperTest {
         sqlSession2.close();
     }
 
+    //MyBatis的一级缓存：
     @Test
     public void testGetEmpById(){
         SqlSession sqlSession1 = SqlSessionUtil.getSqlSession();
         CacheMapper mapper1 = sqlSession1.getMapper(CacheMapper.class);
         Emp emp1 = mapper1.getEmpById(1);
         System.out.println(emp1);
-        sqlSession1.clearCache();
-        //mapper1.insertEmp(new Emp(null, "小红", 25, "男"));
+//        sqlSession1.clearCache();
+        mapper1.insertEmp(new Emp(null, "小红", 25, "男"));
         Emp emp2 = mapper1.getEmpById(1);
         System.out.println(emp2);
         /*SqlSession sqlSession2 = SqlSessionUtil.getSqlSession();

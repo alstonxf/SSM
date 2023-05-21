@@ -64,5 +64,5 @@ public interface UserMapper {
      * @param password
      * @return
      */
-    User checkLoginByParam(@Param("username") String username, @Param("password") String password);
+    User checkLoginByParam(@Param("username1") String username, @Param("password1") String password);
 }

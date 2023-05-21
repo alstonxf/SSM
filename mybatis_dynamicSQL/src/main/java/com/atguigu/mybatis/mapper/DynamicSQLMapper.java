@@ -30,7 +30,7 @@ public interface DynamicSQLMapper {
      * 批量添加员工信息
      * @param emps
      */
-    void insertMoreEmp(@Param("emps") List<Emp> emps);
+    void insertMoreEmp(@Param("myemps") List<Emp> emps);
 
     /**
      * 批量删除
@@ -38,4 +38,5 @@ public interface DynamicSQLMapper {
      */
     void deleteMoreEmp(@Param("empIds") Integer[] empIds);
 
+    void testUpdateEmp(@Param("emps") List<Emp> emps);
 }

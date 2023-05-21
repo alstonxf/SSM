@@ -7,7 +7,7 @@
 
     <!--Dept getEmpAndDeptByStepTwo(@Param("deptId") Integer deptId);-->
     <select id="getEmpAndDeptByStepTwo" resultType="Dept">
-        select * from t_dept where dept_id = #{deptId}
+        select * from t_dept where dept_id = '${deptId}'
     </select>
 
     <resultMap id="deptAndEmpResultMap" type="Dept">
@@ -17,7 +17,7 @@
             ofType：设置集合类型的属性中存储的数据的类型
         -->
         <collection property="emps" ofType="Emp">
-            <id column="emp_id" property="empId"></id>
+            <result column="emp_id" property="empId"></result>
             <result column="emp_name" property="empName"></result>
             <result column="age" property="age"></result>
             <result column="gender" property="gender"></result>
