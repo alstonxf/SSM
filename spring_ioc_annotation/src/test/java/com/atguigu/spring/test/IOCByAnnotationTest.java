@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.awt.*;
+import java.awt.Color;
 /**
  * Date:2022/7/2
  * Author:ybc
@@ -53,5 +55,16 @@ public class IOCByAnnotationTest {
         System.out.println(userDao);*/
         userController.saveUser();
     }
+
+    @Test
+    public void test2() {
+        String hexColor = "#B2CDEB";
+        Color color = Color.decode(hexColor);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        System.out.println("RGB: " + red + ", " + green + ", " + blue);
+    }
+
 
 }

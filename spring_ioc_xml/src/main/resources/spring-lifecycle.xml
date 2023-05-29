@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+    <!-- 使用init-method属性指定初始化方法 User.class中定义initMethod方法-->
+    <!-- 使用destroy-method属性指定销毁方法 User.class中定义destroyMethod方法-->
     <bean id="user" class="com.atguigu.spring.pojo.User" init-method="initMethod" destroy-method="destroyMethod">
         <property name="id" value="1"></property>
         <property name="username" value="admin"></property>

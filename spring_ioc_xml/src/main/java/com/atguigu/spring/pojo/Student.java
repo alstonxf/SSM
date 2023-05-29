@@ -29,6 +29,9 @@ public class Student implements Person {
     public Student() {
     }
 
+
+    //不设置有参构造器时，无参构造器默认就有，如果设置了有参数构造器，无参构造器要手写。spring框架需要无参构造器
+    //添加有参构造器
     public Student(Integer sid, String sname, String gender, Integer age) {
         this.sid = sid;
         this.sname = sname;

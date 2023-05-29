@@ -29,30 +29,64 @@ public class IOCByXMLTest {
      * 即通过bean的类型、bean所继承的类的类型、bean所实现的接口的类型都可以获取bean
      */
 
-    @Test
-    public void testDI(){
-        //获取IOC容器
-        ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-ioc.xml");
-        //获取bean
-        Student student = ioc.getBean("studentSix", Student.class);
-        System.out.println(student);
-        /*Clazz clazz = ioc.getBean("clazzInner", Clazz.class);
-        System.out.println(clazz);*/
-        /*Clazz clazz = ioc.getBean("clazzOne", Clazz.class);
-        System.out.println(clazz);*/
-    }
-
-
+    //2.2.2、实验二：获取bean
     @Test
     public void testIOC(){
         //获取IOC容器
         ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-ioc.xml");
         //获取bean
-        //Student studentOne = (Student) ioc.getBean("studentOne");
-        //Student student = ioc.getBean(Student.class);
-        //Student student = ioc.getBean("studentOne", Student.class);
-        Person person = ioc.getBean(Person.class);
-        System.out.println(person);
+//             * 1、根据bean的id获取
+        Student studentOne = (Student) ioc.getBean("studentOne");
+//             * 2、根据bean的类型获取
+//                * 注意：根据类型获取bean时，要求IOC容器中有且只有一个类型匹配的bean
+//                * 若没有任何一个类型匹配的bean，此时抛出异常：NoSuchBeanDefinitionException
+//                * 若有多个类型匹配的bean，此时抛出异常：NoUniqueBeanDefinitionException
+//        Student student = ioc.getBean(Student.class);
+//
+//             * 3、根据bean的id和类型获取
+        Student student = ioc.getBean("studentOne", Student.class);
+        System.out.println(student);
+
+        //只有当xml中只有唯一的由这个接口实现的类时，才可以通过接口获取类型。否则报NoUniqueBeanDefinitionException错误
+//        Person person = ioc.getBean(Person.class);
+//        System.out.println(person);
+    }
+
+    //2.2.3、实验三：依赖注入之setter注入
+    @Test
+    public void testDIwithSetter(){
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring-ioc.xml");
+        Student studentTwo = (Student)classPathXmlApplicationContext.getBean("studentTwo");
+        Integer age = studentTwo.getAge();
+        String sname = studentTwo.getSname();
+        Integer sid = studentTwo.getSid();
+        String gender = studentTwo.getGender();
+        System.out.println(age+sname+sid+gender);
+        studentTwo.toString();
+    }
+
+    //2.2.4、实验四：依赖注入之构造器注入
+    @Test
+    public void testDIwithConstruct(){
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring-ioc.xml");
+        Student studentThree = classPathXmlApplicationContext.getBean("studentThree", Student.class);
+        System.out.println(studentThree);
+    }
+
+
+    @Test
+    public void testDI(){
+        //获取IOC容器
+        ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-ioc.xml");
+        //获取bean
+        Student student4 = ioc.getBean("studentFour", Student.class);//特殊字面量
+        System.out.println(student4);
+        Student student5 = ioc.getBean("studentFive", Student.class);//array,map,class 属性
+        System.out.println(student5);
+        /*Clazz clazz = ioc.getBean("clazzInner", Clazz.class);//为类类型属性赋值
+        System.out.println(clazz);*/
+        /*Clazz clazz = ioc.getBean("clazzOne", Clazz.class);
+        System.out.println(clazz);*/
     }
 
 }

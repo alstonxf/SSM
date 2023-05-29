@@ -19,6 +19,7 @@ public class HelloWorldTest {
         //获取IOC容器中的bean
         HelloWorld helloworld = (HelloWorld) ioc.getBean("helloworld");
         helloworld.sayHello();
+
     }
 
 }

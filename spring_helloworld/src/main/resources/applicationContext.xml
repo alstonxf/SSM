@@ -11,4 +11,5 @@
     -->
     <bean id="helloworld" class="com.atguigu.spring.pojo.HelloWorld"></bean>
 
+    <bean id="student1" class="com.atguigu.spring.pojo.student"></bean>
 </beans>
