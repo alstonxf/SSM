@@ -45,6 +45,20 @@ public class IOCByAnnotationTest {
      */
 
     @Test
+    public void testAutowireByAnnotation(){
+        ApplicationContext ac = new
+                ClassPathXmlApplicationContext("spring-ioc-annotation.xml");
+
+        UserController userController = ac.getBean(UserController.class);
+        System.out.println(userController);
+        UserService userService = ac.getBean(UserService.class);
+        System.out.println(userService);
+        UserDao userDao = ac.getBean(UserDao.class);
+//        UserDao userDao = (UserDao) ac.getBean("userDaoImpl1");//因为使用xml手动新建了一个userDaoImpl的实现类，所以ioc容器中有两个相同实例，一个是通过scan的，另一个是我指定的，所以不能通过类名来获取bean了。否则报错。
+        System.out.println(userDao);
+    }
+
+    @Test
     public void test(){
         ApplicationContext ioc = new ClassPathXmlApplicationContext("spring-ioc-annotation.xml");
         UserController userController = ioc.getBean("controller", UserController.class);

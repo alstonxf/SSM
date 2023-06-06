@@ -10,17 +10,17 @@
 
     <aop:config>
         <!--设置一个公共的切入点表达式-->
-        <aop:pointcut id="pointCut" expression="execution(* com.atguigu.spring.aop.xml.CalculatorImpl.*(..))"/>
+        <aop:pointcut id="pointCut2" expression="execution(* com.atguigu.spring.aop.xml.CalculatorImpl.*(..))"/>
         <!--将IOC容器中的某个bean设置为切面-->
         <aop:aspect ref="loggerAspect">
-            <aop:before method="beforeAdviceMethod" pointcut-ref="pointCut"></aop:before>
-            <aop:after method="afterAdviceMethod" pointcut-ref="pointCut"></aop:after>
-            <aop:after-returning method="afterReturningAdviceMethod" returning="result" pointcut-ref="pointCut"></aop:after-returning>
-            <aop:after-throwing method="afterThrowingAdviceMethod" throwing="ex" pointcut-ref="pointCut"></aop:after-throwing>
-            <aop:around method="aroundAdviceMethod" pointcut-ref="pointCut"></aop:around>
+            <aop:before method="beforeAdviceMethod" pointcut-ref="pointCut2"></aop:before>
+            <aop:after method="afterAdviceMethod" pointcut-ref="pointCut2"></aop:after>
+            <aop:after-returning method="afterReturningAdviceMethod" returning="result" pointcut-ref="pointCut2"></aop:after-returning>
+            <aop:after-throwing method="afterThrowingAdviceMethod" throwing="ex" pointcut-ref="pointCut2"></aop:after-throwing>
+            <aop:around method="aroundAdviceMethod" pointcut-ref="pointCut2"></aop:around>
         </aop:aspect>
         <aop:aspect ref="validateAspect" order="1">
-            <aop:before method="beforeMethod" pointcut-ref="pointCut"></aop:before>
+            <aop:before method="beforeMethod" pointcut-ref="pointCut2"></aop:before>
         </aop:aspect>
     </aop:config>
 
